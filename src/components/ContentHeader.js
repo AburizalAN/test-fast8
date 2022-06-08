@@ -11,9 +11,9 @@ const ContentHeader = () => {
       <div className="flex gap-x-5 gap-y-3 flex-col sm:flex-row">
         <div className="flex justify-between border-gray-300 border rounded-sm">
           <button className="text-teal-400 px-4"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
-          <input className="text-gray-400 font-medium flex-1 h-100" placeholder="Find Personnels" />
+          <input className="text-gray-400 font-medium py-2 flex-1 h-100" placeholder="Find Personnels" />
         </div>
-        <button className="flex items-center justify-between gap-3 px-5 py-2 bg-teal-400 text-white rounded-sm">
+        <button className="hover:bg-teal-600 flex items-center justify-between gap-3 px-5 py-2 bg-teal-400 text-white rounded-sm transition-all">
           <div className="text-white font-medium">Add Personnel</div>
           <div className="text-white"><FontAwesomeIcon icon={faPlus} /></div>
         </button>

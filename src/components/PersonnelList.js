@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import actions from 'store/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 const PhotoWrapper = styled.div`
@@ -31,14 +33,11 @@ const PhotoWrapper = styled.div`
 const PersonelList = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch()
+  const { fetchDataUsers } = actions
+  const { dataUsers, isLoading } = useSelector((state) => state.globalReducer)
   const { page: _page = null } = queryString.parse(location.search)
-  const [dataUsers, setDataUsers] = useState([])
   const [page, setPage] = useState(_page ? parseInt(_page) : 1)
-
-  const fetchDataUsers = async () => {
-    const response = await fetch(`https://randomuser.me/api/?page=${page}&results=4&seed=abc`)
-    return response.json()
-  }
 
   const nextPage = () => {
     navigate(`/?page=${page + 1}`)
@@ -51,9 +50,7 @@ const PersonelList = () => {
   }
   
   useEffect(() => {
-    fetchDataUsers()
-      .then((res) => setDataUsers(res.results))
-      .catch((err) => console.log(err))
+    dispatch(fetchDataUsers(page))
   }, [page])
 
   return (

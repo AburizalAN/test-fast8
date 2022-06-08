@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import GadjianLogo from 'assets/logo-gadjian.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouseChimney, faUsers, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 const LogoWrapper = styled.div`
   width: 100px;
@@ -16,7 +16,7 @@ const LogoWrapper = styled.div`
 const Container = styled.div`
   background-color: white;
   transition: all .5s ease;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 767px) {
     position: fixed;
     width: 100%;
     top: 0;
@@ -24,7 +24,7 @@ const Container = styled.div`
     height: 100vh;
     z-index: 99;
   }
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 768px) {
     min-width: 300px;
     height: 100vh;
   }
@@ -39,10 +39,11 @@ const SidebarList = styled.ul`
 `
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch()
+  const { openSidebar } = useSelector(state => state.globalReducer)
 
   return (
-    <Container open={open} className="p-5">
+    <Container open={openSidebar} className="p-5">
       <LogoWrapper className="pb-16">
         <img src={GadjianLogo} alt="Gadjian Logo" />
       </LogoWrapper>
