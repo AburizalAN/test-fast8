@@ -1,3 +1,5 @@
+import Personnels from 'pages/Personnels';
+import DailyAttendance from 'pages/DailyAttendance';
 import Home from 'pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -12,8 +14,8 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home />}/> 
-            <Route path="/personnel-list" element={<Home />}/> 
-            <Route path="/daily-attendance" element={<Home />}/> 
+            <Route path="/personnel-list" element={<Personnels />}/> 
+            <Route path="/daily-attendance" element={<DailyAttendance />}/> 
           </Routes>
         </Router>
       </div>

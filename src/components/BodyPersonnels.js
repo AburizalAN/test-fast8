@@ -2,7 +2,7 @@ import Navbar from 'components/Navbar'
 import ContentHeader from 'components/ContentHeader'
 import PersonnelList from 'components/PersonnelList'
 
-const Body = () => {
+const BodyPersonnels = () => {
   return (
     <div className="flex-1 flex flex-col">
       <Navbar />
@@ -14,4 +14,4 @@ const Body = () => {
   )
 }
 
-export default Body
+export default BodyPersonnels

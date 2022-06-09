@@ -11,7 +11,7 @@ const Home = () => {
           <Navbar />
           <div className="flex-1 bg-gray-100 flex items-center justify-center flex-col">
             <div className="text-3xl font-bold text-teal-400 mb-4">
-              Beranda
+              Daily Attendance
             </div>
             <p className='mb-5 text-gray-600'>Klik tombol di bawah untuk melihat halaman Personnel List</p>
             <Link to="/personnel-list" className="btn btn-primary">

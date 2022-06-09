@@ -49,6 +49,12 @@ const CloseButton = styled.button`
   border-radius: 50%;
 `
 
+const listSidebar = [
+  { name: "Beranda", link: "/", logo: <FontAwesomeIcon icon={faHouseChimney} /> },
+  { name: "Personnel List", link: "/personnel-list", logo: <FontAwesomeIcon icon={faUsers} /> },
+  { name: "Daily Attendance", link: "/daily-attendance", logo: <FontAwesomeIcon icon={faCalendarAlt} /> },
+]
+
 const Sidebar = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -70,42 +76,22 @@ const Sidebar = () => {
         <img src={GadjianLogo} alt="Gadjian Logo" />
       </LogoWrapper>
       <SidebarList>
-        <li 
-          onClick={() => {
-            navigate(`/${search}`)
-            dispatch(setOpenSidebar(!openSidebar))
-          }}
-          tabIndex={0}
-          className={`flex items-center gap-x-3 ${location.pathname === '/' ? 'text-teal-400' : 'text-gray-600'}`}>
-          <div className={`w-7 text-center`}><FontAwesomeIcon icon={faHouseChimney} /></div>
-          <div>
-            Beranda
-          </div>
-        </li>
-        <li
-          onClick={() => {
-            navigate(`/personnel-list${search}`)
-            dispatch(setOpenSidebar(!openSidebar))
-          }}
-          tabIndex={0}
-          className={`flex items-center gap-x-3 ${location.pathname === '/personnel-list' ? 'text-teal-400' : 'text-gray-600'}`}>
-          <div className={`w-7 text-center`}><FontAwesomeIcon icon={faUsers} /></div>
-          <div>
-            Personnel List
-          </div>
-        </li>
-        <li
-          onClick={() => {
-            navigate(`/daily-attendance${search}`)
-            dispatch(setOpenSidebar(!openSidebar))
-          }}
-          tabIndex={0}
-          className={`flex items-center gap-x-3 ${location.pathname === '/daily-attendance' ? 'text-teal-400' : 'text-gray-600'}`}>
-          <div className={`w-7 text-center`}><FontAwesomeIcon icon={faCalendarAlt} /></div>
-          <div>
-            Daily Attendance
-          </div>
-        </li>
+        {listSidebar.map((item, i) => (
+          <li 
+            onClick={() => {
+              navigate(`${item.link}${search}`)
+              dispatch(setOpenSidebar(!openSidebar))
+            }}
+            tabIndex={0}
+            className={`flex items-center gap-x-3 ${location.pathname === item.link ? 'text-teal-400' : 'text-gray-600'}`}>
+            <div className={`w-7 text-center`}>
+              {item.logo}
+            </div>
+            <div>
+              {item.name}
+            </div>
+          </li>
+        ))}
       </SidebarList>
     </Container>
   )
