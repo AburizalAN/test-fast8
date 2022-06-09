@@ -71,7 +71,10 @@ const Sidebar = () => {
       </LogoWrapper>
       <SidebarList>
         <li 
-          onClick={() => navigate(`/${search}`)}
+          onClick={() => {
+            navigate(`/${search}`)
+            dispatch(setOpenSidebar(!openSidebar))
+          }}
           tabIndex={0}
           className={`flex items-center gap-x-3 ${location.pathname === '/' ? 'text-teal-400' : 'text-gray-600'}`}>
           <div className={`w-7 text-center`}><FontAwesomeIcon icon={faHouseChimney} /></div>
@@ -80,7 +83,10 @@ const Sidebar = () => {
           </div>
         </li>
         <li
-          onClick={() => navigate(`/personnel-list${search}`)}
+          onClick={() => {
+            navigate(`/personnel-list${search}`)
+            dispatch(setOpenSidebar(!openSidebar))
+          }}
           tabIndex={0}
           className={`flex items-center gap-x-3 ${location.pathname === '/personnel-list' ? 'text-teal-400' : 'text-gray-600'}`}>
           <div className={`w-7 text-center`}><FontAwesomeIcon icon={faUsers} /></div>
@@ -89,7 +95,10 @@ const Sidebar = () => {
           </div>
         </li>
         <li
-          onClick={() => navigate(`/daily-attendance${search}`)}
+          onClick={() => {
+            navigate(`/daily-attendance${search}`)
+            dispatch(setOpenSidebar(!openSidebar))
+          }}
           tabIndex={0}
           className={`flex items-center gap-x-3 ${location.pathname === '/daily-attendance' ? 'text-teal-400' : 'text-gray-600'}`}>
           <div className={`w-7 text-center`}><FontAwesomeIcon icon={faCalendarAlt} /></div>

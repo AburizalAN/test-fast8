@@ -8,6 +8,7 @@ import actions from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Skeleton from 'react-loading-skeleton';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PhotoWrapper = styled.div`
   min-width: 140px;
@@ -65,7 +66,7 @@ const PersonelList = () => {
             </div>
             <div className="flex items-start flex-row sm:flex-col px-5 py-3 gap-5">
               <PhotoWrapper>
-                <img src={user.picture.large} alt="personel" />
+                <LazyLoadImage src={user.picture.large} alt="personel" />
               </PhotoWrapper>
               <div className="flex-1">
                 <div className="mb-2">
