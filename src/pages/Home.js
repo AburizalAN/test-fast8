@@ -9,7 +9,7 @@ const Home = () => {
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Navbar />
-          <div className="flex-1 bg-gray-100 flex items-center justify-center flex-col">
+          <div className="flex-1 bg-gray-100 flex items-center justify-center flex-col px-4 text-center">
             <div className="text-3xl font-bold text-teal-400 mb-4">
               Beranda
             </div>
