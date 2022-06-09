@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import actions from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import Skeleton from 'react-loading-skeleton';
 
 const PhotoWrapper = styled.div`
   min-width: 140px;
@@ -40,12 +41,12 @@ const PersonelList = () => {
   const [page, setPage] = useState(_page ? parseInt(_page) : 1)
 
   const nextPage = () => {
-    navigate(`/?page=${page + 1}`)
+    navigate(`?page=${page + 1}`)
     setPage(page + 1)
   }
 
   const prevPage = () => {
-    navigate(`/?page=${page - 1}`)
+    navigate(`?page=${page - 1}`)
     setPage(page - 1)
   }
   
@@ -56,8 +57,8 @@ const PersonelList = () => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {dataUsers.map((user) => (
-          <div key={user.id.value} tabIndex={0} className="bg-white rounded-xl">
+        {!isLoading && dataUsers.length > 0 ? dataUsers.map((user, i) => (
+          <div key={i} tabIndex={0} className="bg-white rounded-xl">
             <div className="flex px-5 py-3 border-b border-slate-200">
               <div className="mr-auto">Personel ID: <span className="text-teal-400 font-medium">{user.id.value}</span></div>
               <div className="text-gray-400"><FontAwesomeIcon icon={faEllipsis} /></div>
@@ -86,7 +87,12 @@ const PersonelList = () => {
               </div>
             </div>
           </div>
-        ))}
+        )) : null}
+
+        {isLoading ? [...Array(4)].map((_, i) => (
+          <Skeleton className="block" key={i} width="100%" height="400px" />
+        )) : null}
+
       </div>
       <div className="flex items-center mx-auto gap-x-10">
           <button onClick={prevPage} disabled={page <= 1} className="flex gap-x-2 disabled:text-gray-400">
@@ -94,7 +100,7 @@ const PersonelList = () => {
             <div>Previous Page</div>
           </button>
           <div className="text-sm text-gray-400">page: {page}</div>
-          <button onClick={nextPage} className="flex gap-x-2">
+          <button onClick={nextPage} disabled={page >= 7} className="flex gap-x-2 disabled:text-gray-400">
             <div>Next Page</div>
             <div><FontAwesomeIcon icon={faAngleRight} /></div>
           </button>

@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import GadjianLogo from 'assets/logo-gadjian.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouseChimney, faUsers, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faHouseChimney, faUsers, faCalendarAlt, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
+import actions from 'store/actions';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LogoWrapper = styled.div`
   width: 100px;
@@ -15,7 +17,8 @@ const LogoWrapper = styled.div`
 `
 const Container = styled.div`
   background-color: white;
-  transition: all .5s ease;
+  transition: all .3s ease;
+  position: relative;
   @media screen and (max-width: 767px) {
     position: fixed;
     width: 100%;
@@ -34,34 +37,62 @@ const SidebarList = styled.ul`
     padding: 10px 0;
     cursor: pointer;
     font-weight: 500;
-    color: #484848;
   }
+`
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 `
 
 const Sidebar = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
   const dispatch = useDispatch()
   const { openSidebar } = useSelector(state => state.globalReducer)
+  const { setOpenSidebar } = actions
+
+  const search = location.search.trim().length > 0 ? `${location.search}` : '';
 
   return (
     <Container open={openSidebar} className="p-5">
+      <CloseButton
+        onClick={() => dispatch(setOpenSidebar(!openSidebar))}
+        className="grid md:hidden hover:bg-gray-200 transition text-gray-500"
+      >
+        <FontAwesomeIcon icon={faXmark} />
+      </CloseButton>
       <LogoWrapper className="pb-16">
         <img src={GadjianLogo} alt="Gadjian Logo" />
       </LogoWrapper>
       <SidebarList>
-        <li className="flex items-center gap-x-3">
-          <div className="w-7 text-center"><FontAwesomeIcon icon={faHouseChimney} /></div>
+        <li 
+          onClick={() => navigate(`/${search}`)}
+          tabIndex={0}
+          className={`flex items-center gap-x-3 ${location.pathname === '/' ? 'text-teal-400' : 'text-gray-600'}`}>
+          <div className={`w-7 text-center`}><FontAwesomeIcon icon={faHouseChimney} /></div>
           <div>
             Beranda
           </div>
         </li>
-        <li className="flex items-center gap-x-3">
-          <div className="w-7 text-center"><FontAwesomeIcon icon={faUsers} /></div>
+        <li
+          onClick={() => navigate(`/personnel-list${search}`)}
+          tabIndex={0}
+          className={`flex items-center gap-x-3 ${location.pathname === '/personnel-list' ? 'text-teal-400' : 'text-gray-600'}`}>
+          <div className={`w-7 text-center`}><FontAwesomeIcon icon={faUsers} /></div>
           <div>
-            Personal List
+            Personnel List
           </div>
         </li>
-        <li className="flex items-center gap-x-3">
-          <div className="w-7 text-center"><FontAwesomeIcon icon={faCalendarAlt} /></div>
+        <li
+          onClick={() => navigate(`/daily-attendance${search}`)}
+          tabIndex={0}
+          className={`flex items-center gap-x-3 ${location.pathname === '/daily-attendance' ? 'text-teal-400' : 'text-gray-600'}`}>
+          <div className={`w-7 text-center`}><FontAwesomeIcon icon={faCalendarAlt} /></div>
           <div>
             Daily Attendance
           </div>

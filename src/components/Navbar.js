@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import GadjianLogo from 'assets/logo-gadjian.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from 'store/actions';
 
 const AvatarWrapper = styled.div`
   width: 50px;
@@ -23,11 +25,15 @@ const LogoWrapper = styled.div`
 `
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { openSidebar } = useSelector(state => state.globalReducer);
+  const { setOpenSidebar } = actions
+
   return (
     <div className="p-5 flex items-center">
       <button
         className="block md:hidden mr-5 text-gray-400"
-        onClick={() => {}}
+        onClick={() => dispatch(setOpenSidebar(!openSidebar))}
       >
         <FontAwesomeIcon icon={faBars} />
       </button>
