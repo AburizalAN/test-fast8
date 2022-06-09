@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Home = () => {
   return (
     <>
-      <div className="flex">
+      <div className="flex h-screen">
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Navbar />
