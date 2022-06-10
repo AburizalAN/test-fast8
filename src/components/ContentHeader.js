@@ -5,7 +5,7 @@ const ContentHeader = () => {
   return (
     <div className="bg-white p-5 flex sm:items-center flex-col sm:flex-row gap-y-3">
       <div className="flex-1">
-        <div className="text-2xl font-bold text-teal-400">PERSONNEL LIST</div>
+        <h1 className="text-2xl font-bold text-teal-400">PERSONNEL LIST</h1>
         <div className="text-md text-gray-600">List of Personnels</div>
       </div>
       <div className="flex gap-x-5 gap-y-3 flex-col sm:flex-row">

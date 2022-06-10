@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
@@ -10,6 +10,8 @@ import '@testing-library/jest-dom';
 import ContentHeader from 'components/ContentHeader';
 import PersonnelList from 'components/PersonnelList';
 import Navbar from 'components/Navbar';
+import Sidebar from 'components/Sidebar';
+import App from './App';
 
 const server = setupServer(
   rest.get('https://randomuser.me/api/?page=1&results=4&seed=abc', (req, res, ctx) => {
@@ -54,7 +56,7 @@ test('Renders Content Header Component', () => {
   expect(ButtonText).toBeInTheDocument();
 })
 
-test('Render PersonnelList Component', async () => {
+test('Renders PersonnelList Component', async () => {
   const history = createMemoryHistory();
 
   render(
@@ -76,7 +78,7 @@ test('Render PersonnelList Component', async () => {
   expect(phone).toBeInTheDocument();
 })
 
-test('Render Navbar Component', () => {
+test('Renders Navbar Component', () => {
   render(
     <Provider store={store}>
       <Navbar />
@@ -84,4 +86,52 @@ test('Render Navbar Component', () => {
   );
   const NavbarText = screen.getByText(/Gadjian User/i);
   expect(NavbarText).toBeInTheDocument();
+})
+
+test('Render Sidebar Component', async () => {
+  const history = createMemoryHistory();
+  render(
+    <Provider store={store}>
+      <Router location={history.location} navigator={history}>
+        <Sidebar />
+      </Router>
+    </Provider>
+  );
+  
+  expect(screen.getByTitle('Beranda')).toBeInTheDocument();
+  expect(screen.getByTitle('Personnel List')).toBeInTheDocument();
+  expect(screen.getByTitle('Daily Attendance')).toBeInTheDocument();
+})
+
+test('Click Link Beranda', async () => {
+  render(<App />)
+
+  expect(screen.getByTitle('Beranda')).toBeInTheDocument();
+  fireEvent.click(screen.getByTitle('Beranda'));
+
+  await waitFor(() => screen.findByRole('heading'));
+
+  expect(screen.getByRole('heading')).toHaveTextContent('Beranda')
+})
+
+test('Click Link Personnel List', async () => {
+  render(<App />)
+
+  expect(screen.getByTitle('Personnel List')).toBeInTheDocument();
+  fireEvent.click(screen.getByTitle('Personnel List'));
+
+  await waitFor(() => screen.findByRole('heading'));
+
+  expect(screen.getByRole('heading')).toHaveTextContent(/Personnel List/i)
+})
+
+test('Click Link Daily Attendance', async () => {
+  render(<App />)
+
+  expect(screen.getByTitle('Daily Attendance')).toBeInTheDocument();
+  fireEvent.click(screen.getByTitle('Daily Attendance'));
+
+  await waitFor(() => screen.findByRole('heading'));
+
+  expect(screen.getByRole('heading')).toHaveTextContent('Daily Attendance')
 })

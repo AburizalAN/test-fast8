@@ -77,13 +77,16 @@ const Sidebar = () => {
       </LogoWrapper>
       <SidebarList>
         {listSidebar.map((item, i) => (
-          <li 
+          <li
+            key={i} 
             onClick={() => {
               navigate(`${item.link}${search}`)
               dispatch(setOpenSidebar(!openSidebar))
             }}
             tabIndex={0}
-            className={`flex items-center gap-x-3 ${location.pathname === item.link ? 'text-teal-400' : 'text-gray-600'}`}>
+            className={`flex items-center gap-x-3 ${location.pathname === item.link ? 'text-teal-400' : 'text-gray-600'}`}
+            title={item.name}
+          >
             <div className={`w-7 text-center`}>
               {item.logo}
             </div>
